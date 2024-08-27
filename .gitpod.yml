@@ -5,7 +5,7 @@ tasks:
       ln -snf /workspace/.dbt ~/.dbt
       unset PROMPT_COMMAND
 gitConfig:
-  user.email: 91713699+rrailton@users.noreply.github.com
+  user.email: "91713699+rrailton@users.noreply.github.com"
 ports:
   - port: 8000
     onOpen: open-browser
