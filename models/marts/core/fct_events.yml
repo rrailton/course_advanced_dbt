@@ -1,5 +1,5 @@
 models:
-  - name: stg_bingeflix__events
+  - name: fct_events
     description: '{{ doc("table_bingeflix__events") }}'
     columns:
       - name: session_id
