@@ -1,6 +1,6 @@
 models:
   - name: stg_bingeflix__subscriptions
-    description: This model contains information about Bingeflix subscriptions.
+    description: '{{ doc("table_bingeflix__subscriptions") }}'
     columns:
       - name: subscription_plan_id
         description: The subscription identifier.
@@ -8,7 +8,7 @@ models:
           - not_null
 
       - name: user_id
-        description: '{{ doc("bingeflix_column_user_id") }}'
+        description: '{{ doc("bingeflix_users_column_user_id") }}'
         data_tests:
           - not_null
 
