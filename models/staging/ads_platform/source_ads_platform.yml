@@ -1,7 +1,40 @@
 sources:
   - name: ads_platform
     schema: bingeflix
+    description: '{{ doc("source_ads_platform") }}'
     database: raw
     tables:
       - name: daily_ads
+        description: '{{ doc("table_ads_platform__daily_ads") }}'
         identifier: ads
+        columns:
+          - name: date
+            description: '{{ doc("ads_platform_daily_ads_column_date") }}'
+            data_tests:
+              - not_null
+
+          - name: campaign_id
+            description: '{{ doc("ads_platform_daily_ads_column_campaign_id") }}'
+            data_tests:
+              - not_null
+
+          - name: surrogate_key
+            description: '{{ doc("ads_platform_daily_ads_column_surrogate_key") }}'
+            data_tests:
+              - not_null
+              - unique
+
+          - name: spend
+            description: '{{ doc("ads_platform_daily_ads_column_spend") }}'
+            data_tests:
+              - not_null
+
+          - name: cpm
+            description: '{{ doc("ads_platform_daily_ads_column_cpm") }}'
+            data_tests:
+              - not_null
+
+          - name: ctr
+            description: '{{ doc("ads_platform_daily_ads_column_ctr") }}'
+            data_tests:
+              - not_null
