@@ -1,6 +1,6 @@
 models:
   - name: dim_subscriptions
-    description: This model contains information about Bingeflix subscriptions.
+    description: '{{ doc("table_bingeflix__subscriptions") }}'
     columns:
       - name: subscription_id
         description: The unique identifier of the subscription.

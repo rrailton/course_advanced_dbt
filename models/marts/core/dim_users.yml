@@ -1,6 +1,6 @@
 models:
   - name: dim_users
-    description: This model contains information about Bingeflix users.
+    description: '{{ doc("table_bingeflix__users") }}'
     meta:
       priority: high
       owner:
