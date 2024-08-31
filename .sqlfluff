@@ -23,7 +23,7 @@ template_blocks_indent = True
 
 [sqlfluff:layout:type:comma]
 spacing_before = touch
-line_position = leading
+line_position = trailing
 
 [sqlfluff:templater]
 unwrap_wrapped_queries = true
@@ -36,3 +36,23 @@ single_table_references = consistent
 
 [sqlfluff:ambiguous.column_references]
 group_by_and_order_by_style = consistent
+
+[sqlfluff:rules:capitalisation.identifiers] #L014
+capitalisation_policy = upper
+ignore_words = None
+
+[sqlfluff:rules:capitalisation.keywords] #L010
+capitalisation_policy = upper
+ignore_words = None
+
+[sqlfluff:rules:capitalisation.functions] #L030
+extended_capitalisation_policy = upper
+ignore_words = None
+
+[sqlfluff:rules:capitalisation.literals] #L040
+capitalisation_policy = upper
+ignore_words = None
+
+[sqlfluff:rules:capitalisation.types] #L063
+# Capitalisation of datatypes
+extended_capitalisation_policy = upper
