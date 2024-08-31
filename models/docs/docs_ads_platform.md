@@ -3,6 +3,10 @@
 
 This file contains documentation for Ads Platform data sources.
 
+{% docs source_ads_platform %}
+This source contains tables from the Ads Platform.
+{% enddocs %}
+
 ## Daily Ads
 
 This section contains documentation from the Ads Platform Daily Ads table.
