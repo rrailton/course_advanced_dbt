@@ -1,7 +1,7 @@
-with
+WITH
 
-source as (
-    select
+source AS (
+    SELECT
         user_id,
         created_at,
         phone_number,
@@ -13,8 +13,8 @@ source as (
         birthdate,
         region,
         country
-    from {{ source('bingeflix', 'users') }}
+    FROM {{ source('bingeflix', 'users') }}
 )
 
-select * from source
+SELECT * FROM source
 
