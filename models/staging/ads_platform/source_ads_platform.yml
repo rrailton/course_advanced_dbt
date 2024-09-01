@@ -8,7 +8,9 @@ sources:
         description: '{{ doc("table_ads_platform__daily_ads") }}'
         identifier: ads
         freshness:
-          warn_after: 6 hours
+          warn_after:
+            count: 6
+            period: hour
         columns:
           - name: date
             description: '{{ doc("ads_platform_daily_ads_column_date") }}'

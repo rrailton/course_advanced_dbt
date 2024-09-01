@@ -7,7 +7,9 @@ sources:
       - name: events
         description: '{{ doc("table_bingeflix__events") }}'
         freshness:
-          warn_after: 6 hours
+          warn_after:
+            count: 6
+            period: hour
         columns:
           - name: session_id
             description: '{{ doc("bingeflix_events_column_session_id") }}'
@@ -38,7 +40,9 @@ sources:
       - name: subscription_plans
         description: '{{ doc("table_bingeflix__subscription_plans") }}'
         freshness:
-          warn_after: 6 hours
+          warn_after:
+            count: 6
+            period: hour
         columns:
           - name: subscription_plan_id
             description: The unique identifier of the subscription plan.
@@ -67,7 +71,9 @@ sources:
       - name: subscriptions
         description: '{{ doc("table_bingeflix__subscriptions") }}'
         freshness:
-          warn_after: 6 hours
+          warn_after:
+            count: 6
+            period: hour
         columns:
           - name: subscription_plan_id
             description: The subscription identifier.
@@ -96,7 +102,9 @@ sources:
       - name: users
         description: '{{ doc("table_bingeflix__users") }}'
         freshness:
-          warn_after: 6 hours
+          warn_after:
+            count: 6
+            period: hour
         columns:
           - name: user_id
             description: '{{ doc("bingeflix_users_column_user_id") }}'
