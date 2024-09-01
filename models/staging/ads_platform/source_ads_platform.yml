@@ -11,6 +11,11 @@ sources:
           warn_after:
             count: 6
             period: hour
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - date
+                - campaign_id
         columns:
           - name: date
             description: '{{ doc("ads_platform_daily_ads_column_date") }}'
@@ -21,12 +26,6 @@ sources:
             description: '{{ doc("ads_platform_daily_ads_column_campaign_id") }}'
             data_tests:
               - not_null
-
-          - name: surrogate_key
-            description: '{{ doc("ads_platform_daily_ads_column_surrogate_key") }}'
-            data_tests:
-              - not_null
-              - unique
 
           - name: spend
             description: '{{ doc("ads_platform_daily_ads_column_spend") }}'
