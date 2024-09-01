@@ -48,7 +48,11 @@ models:
         +schema: product
         +docs:
           node_color: "gold"        
-          
+
+  dbt_project_evaluator:
+    +docs:
+      show: false
+
 seeds:
   dbt_project_evaluator:
     dbt_project_evaluator_exceptions:
