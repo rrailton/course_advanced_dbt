@@ -24,30 +24,30 @@ models:
     +materialized: view
     +grants:
       select: ['transformer', 'reporter']
-    
+
     staging:
       +schema: staging
       +docs:
         node_color: "orange"
-    
+
     intermediate:
       +schema: intermediate
       +docs:
-        node_color: "blue"      
+        node_color: "blue"
 
     marts:
       core:
         +schema: core_reporting
         +docs:
-          node_color: "gold"        
+          node_color: "gold"
       finance:
         +schema: finance
         +docs:
-          node_color: "gold"        
+          node_color: "gold"
       product:
         +schema: product
         +docs:
-          node_color: "gold"        
+          node_color: "gold"
 
   dbt_project_evaluator:
     +docs:
