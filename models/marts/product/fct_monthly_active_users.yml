@@ -1,0 +1,19 @@
+models:
+  - name: fct_monthly_active_users
+    description: This model calculates the number of active users per month and the rolling average number of active users per quarter
+    columns:
+      - name: DATE_MONTH
+        description: The calendar month.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: ACTIVE_USER_COUNT
+        description: The number of distinct active users.
+        data_tests:
+          - not_null
+
+      - name: AVG_QUARTERLY_ACTIVE_USERS
+        description: The average number of distinct users active in the current quarter.
+        data_tests:
+          - not_null
