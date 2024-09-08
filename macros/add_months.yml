@@ -1,0 +1,12 @@
+version: 2
+
+macros:
+  - name: add_months
+    description: Adds a specified number of months to a given date.
+    arguments:
+      - name: date_field
+        type: string
+        description: The date field or expression to which months will be added.
+      - name: adjustment_value
+        type: int
+        description: The number of months to add (can be positive or negative), default is set to 1.

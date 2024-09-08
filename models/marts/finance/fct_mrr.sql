@@ -15,8 +15,8 @@ monthly_subscriptions AS (
         ends_at,
         plan_name,
         pricing,
-        DATE(DATE_TRUNC('month', starts_at)) AS start_month,
-        DATE(DATE_TRUNC('month', ends_at)) AS end_month
+        {{ trunc_month('starts_at') }} AS start_month,
+        {{ trunc_month('ends_at') }} AS end_month
     FROM
         {{ ref('dim_subscriptions') }}
     WHERE
@@ -48,8 +48,8 @@ subscription_periods AS (
         -- For users that cancel in the first month, set their end_month to next month because the subscription remains active until the end of the first month
         -- For users who haven't ended their subscription yet (end_month is NULL) set the end_month to one month from the current date (these rows will be removed from the final CTE)
         CASE
-            WHEN start_month = end_month THEN DATEADD('month', 1, end_month)
-            WHEN end_month IS NULL THEN DATE(DATEADD('month', 1, DATE_TRUNC('month', CURRENT_DATE)))
+            WHEN start_month = end_month THEN {{ add_months('end_month') }}
+            WHEN end_month IS NULL THEN {{ add_months(trunc_month('CURRENT_DATE')) }} :: DATE
             ELSE end_month
         END AS end_month
     FROM
@@ -151,15 +151,9 @@ mrr_with_changes AS (
     SELECT
         *,
 
-        COALESCE(
-            LAG(is_subscribed_current_month) OVER (PARTITION BY user_id, subscription_id ORDER BY date_month),
-            FALSE
-        ) AS is_subscribed_previous_month,
+        {{ lagged_value('is_subscribed_current_month', 'user_id, subscription_id', 'date_month', default_value='FALSE') }} AS is_subscribed_previous_month,
 
-        COALESCE(
-            LAG(mrr) OVER (PARTITION BY user_id, subscription_id ORDER BY date_month),
-            0.0
-        ) AS previous_month_mrr_amount,
+        {{ lagged_value('mrr', 'user_id, subscription_id', 'date_month', default_value='0.0') }} AS previous_month_mrr_amount,
 
         mrr - previous_month_mrr_amount AS mrr_change
     FROM
@@ -201,7 +195,7 @@ final AS (
             ON mrr_with_changes.user_id = subscription_periods.user_id
                 AND mrr_with_changes.subscription_id = subscription_periods.subscription_id
     WHERE
-        date_month <= DATE_TRUNC('month', CURRENT_DATE)
+        date_month <= {{ trunc_month('CURRENT_DATE') }}
 )
 
 SELECT

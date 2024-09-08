@@ -1,0 +1,18 @@
+version: 2
+
+macros:
+  - name: lagged_value
+    description: Retrieves the previous value of a field within a specified partition and order, with an optional default value for nulls.
+    arguments:
+      - name: field_name
+        type: string
+        description: The name of the field or expression whose lagged value is desired.
+      - name: partition_by
+        type: string
+        description: A comma-separated list of fields to partition the data by (similar to SQL's PARTITION BY clause).
+      - name: order_by
+        type: string
+        description: A comma-separated list of fields to order the data within each partition (similar to SQL's ORDER BY clause).
+      - name: default_value
+        type: any
+        description: The value to return if the lagged value is NULL.

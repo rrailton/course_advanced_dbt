@@ -1,0 +1,9 @@
+version: 2
+
+macros:
+  - name: trunc_month
+    description: Truncates a given date to the beginning of its month.
+    arguments:
+      - name: date_field
+        type: string
+        description: The date field or expression to be truncated.

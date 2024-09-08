@@ -14,5 +14,5 @@ macros:
         type: string
         description: The column to order the result by. Default set to created_at.
       - name: preceding_periods
-        type: integer
+        type: int
         description: The number of periods to include in the rolling average. Default set to 6 for a 7 period rolling average.
