@@ -14,11 +14,11 @@ final AS (
     SELECT
         date_month,
         active_user_count,
-        {{ rolling_average_by_period(
-            'active_user_count',
-            'date_year || date_quarter',
-            'date_month',
-            '2'
+        {{ rolling_aggregation_by_period(
+            column_name='active_user_count',
+            partition_by='date_year || date_quarter',
+            order_by='date_month',
+            periods=2
         ) }} AS avg_quarterly_active_users
     FROM monthly_active_users
     ORDER BY 1

@@ -1,0 +1,21 @@
+version: 2
+
+macros:
+  - name: rolling_aggregation_by_period
+    description: Calculates the rolling aggregation of a column over a specified period.
+    arguments:
+      - name: agg_func
+        type: string
+        description: The aggregation function to apply (e.g., 'avg', 'sum', 'min', 'max'). Defaults to 'avg'.
+      - name: column_name
+        type: string
+        description: The name of the column to calculate the average for.
+      - name: partition_by
+        type: string
+        description: The column to partition the result by.
+      - name: order_by
+        type: string
+        description: The column to order the result by. Defaults to created_at.
+      - name: periods
+        type: integer
+        description: The number of periods to include in the rolling average. Defaults to 7.
