@@ -18,7 +18,7 @@ final AS (
             column_name='active_user_count',
             partition_by='date_year || date_quarter',
             order_by='date_month',
-            periods=2
+            periods=3
         ) }} AS avg_quarterly_active_users
     FROM monthly_active_users
     ORDER BY 1
