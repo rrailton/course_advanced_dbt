@@ -22,6 +22,8 @@
 ### Models
 
 - The primary key column must have not_null and unique schema tests.
+- Avoid repeating tests (which are present in staging tables) in models where there are no transformations or new logic.
+  - Always include tests for primary keys and join keys
 - All boolean columns must have an accepted_values schema test. The accepted values are true and false.
 - Columns that contain category values must have an accepted_values schema test.
 - Columns that should never be null must have a not_null schema test.
