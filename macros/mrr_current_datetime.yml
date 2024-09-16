@@ -1,0 +1,9 @@
+version: 2
+
+macros:
+  - name: mrr_current_datetime
+    description: Returns the current date or timestamp.
+    arguments:
+      - name: type
+        type: string
+        description: The type of datetime to return. Can be 'date' or 'timestamp'. Defaults to 'timestamp'.
