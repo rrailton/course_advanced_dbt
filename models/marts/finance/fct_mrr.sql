@@ -6,23 +6,6 @@
 WITH
 
 -- Import CTEs
--- Get raw monthly subscriptions
-monthly_subscriptions AS (
-    SELECT
-        subscription_id,
-        user_id,
-        starts_at,
-        ends_at,
-        plan_name,
-        pricing,
-        {{ trunc_month('starts_at') }} AS start_month,
-        {{ trunc_month('ends_at') }} AS end_month
-    FROM
-        {{ ref('dim_subscriptions') }}
-    WHERE
-        billing_period = 'monthly'
-),
-
 -- Use the dates spine to generate a list of months
 months AS (
     SELECT
@@ -34,28 +17,6 @@ months AS (
 ),
 
 -- Logic CTEs
--- Create subscription period start_month and end_month ranges
-subscription_periods AS (
-    SELECT
-        subscription_id,
-        user_id,
-        plan_name,
-        pricing AS monthly_amount,
-        starts_at,
-        ends_at,
-        start_month,
-
-        -- For users that cancel in the first month, set their end_month to next month because the subscription remains active until the end of the first month
-        -- For users who haven't ended their subscription yet (end_month is NULL) set the end_month to one month from the current date (these rows will be removed from the final CTE)
-        CASE
-            WHEN start_month = end_month THEN {{ add_months('end_month') }}
-            WHEN end_month IS NULL THEN {{ add_months(trunc_month(mrr_current_datetime('date'))) }} :: DATE
-            ELSE end_month
-        END AS end_month
-    FROM
-        monthly_subscriptions
-),
-
 -- Determine when given subscription plan's first and most recent months
 subscribers AS (
     SELECT
@@ -64,7 +25,7 @@ subscribers AS (
         MIN(start_month) AS first_start_month,
         MAX(end_month) AS last_end_month
     FROM
-        subscription_periods
+        {{ ref('int_subscription_periods') }}
     GROUP BY
         1, 2
 ),
@@ -93,7 +54,7 @@ mrr_base AS (
         COALESCE(subscription_periods.monthly_amount, 0.0) AS mrr
     FROM
         subscriber_months
-        LEFT JOIN subscription_periods
+        LEFT JOIN {{ ref('int_subscription_periods') }} AS subscription_periods
             ON subscriber_months.user_id = subscription_periods.user_id
                 AND subscriber_months.subscription_id = subscription_periods.subscription_id
                 -- The month is on or after the subscription start date...
@@ -191,7 +152,7 @@ final AS (
 
     FROM
         mrr_with_changes
-        LEFT JOIN subscription_periods
+        LEFT JOIN {{ ref('int_subscription_periods') }} AS subscription_periods
             ON mrr_with_changes.user_id = subscription_periods.user_id
                 AND mrr_with_changes.subscription_id = subscription_periods.subscription_id
     WHERE

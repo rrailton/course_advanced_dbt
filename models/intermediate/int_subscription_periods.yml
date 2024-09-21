@@ -1,0 +1,40 @@
+models:
+  - name: int_subscription_periods
+    description: This table creates subscription period start_month and end_month ranges
+    columns:
+      - name: subscription_id
+        description: The subscription id.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: user_id
+        description: The user id.
+        data_tests:
+          - not_null
+
+      - name: plan_name
+        description: The name of the subscription plan.
+        data_tests:
+          - not_null
+
+      - name: monthly_amount
+        description: The monthly cost of the subscription.
+        data_tests:
+          - not_null
+
+      - name: starts_at
+        description: The subscription plan start timestamp.
+        data_tests:
+          - not_null
+
+      - name: ends_at
+        description: The subscription plan end timestamp.
+
+      - name: start_month
+        description: The subscription plan start month.
+        data_tests:
+          - not_null
+
+      - name: end_month
+        description: The subscription plan end month.
