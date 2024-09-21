@@ -1,10 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='event_id'
+    )
+}}
+
 WITH source AS (
-
-    SELECT * FROM {{ source('bingeflix', 'events') }}
-
-),
-
-renamed AS (
 
     SELECT
         session_id,
@@ -12,9 +13,14 @@ renamed AS (
         user_id,
         event_name,
         event_id
+    FROM {{ source('bingeflix', 'events') }}
 
-    FROM source
+{% if is_incremental() %}
+
+  WHERE created_at > (SELECT MAX(created_at) FROM {{ this }})
+
+{% endif %}
 
 )
 
-SELECT * FROM renamed
+SELECT * FROM source
