@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: incremental_where_clause
+    description: Defines the period of data to pull on an incremental run
+    arguments:
+      - name: column_name
+        type: string
+        description: The column with which you want to filter the incremental runs by, defaults to created_at
+      - name: lookback_window
+        type: integer
+        description: The number of periods for which the lookback will operate (should be negative), defaults to -3.
+      - name: periods
+        type: string
+        description: The date_or_time_part which indicates the units of the period, defaults to day.
